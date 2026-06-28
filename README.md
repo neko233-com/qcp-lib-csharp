@@ -1,43 +1,25 @@
-# qcp-lib-csharp
+﻿# qcp-lib-csharp
 
-C# binding for QCP protocol.
-
-## Installation
-
-### NuGet
-
-```bash
-dotnet add package QcpLib.CSharp
-```
-
-## Usage
-
-```csharp
-using QcpLib;
-
-// Create QCP client
-var client = new QcpClient();
-
-// Connect to server
-client.Connect("127.0.0.1", 9000);
-
-// Send data
-client.Send(Encoding.UTF8.GetBytes("hello"));
-
-// Receive data
-byte[] buffer = new byte[1024];
-int n = client.Receive(buffer);
-
-// Close
-client.Close();
-```
+QCP csharp binding - 2026 reliable UDP protocol
 
 ## Features
 
-- .NET Standard 2.0+
-- Async/Await support
-- Thread-safe
-- Unity compatible
+- FEC-First reliability (Forward Error Correction)
+- Zero-Copy Ring Buffer
+- Lock-Free queues
+- 3-channel priority system
+- 10-byte header (vs KCP 24 bytes)
+
+## Installation
+
+See README in each language directory.
+
+## Protocol
+
+QCP uses FEC instead of ARQ for reliability:
+- FEC provides instant recovery (no retransmission delay)
+- ARQ only as fallback (rare cases)
+- More reliable than KCP
 
 ## License
 
